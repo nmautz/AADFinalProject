@@ -16,14 +16,16 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.gms.tasks.Task
 import java.sql.SQLClientInfoException
 
 class MainActivity : AppCompatActivity() {
 
     //Used for Log.d
     private val TAG = "MAINACTIVITYTAG"
+    private val LOCATION_REQUEST_CODE = 1
 
     //Data used in recyclerView
     var places : ArrayList<Place>? = null
@@ -36,8 +38,7 @@ class MainActivity : AppCompatActivity() {
 
     var launcher: ActivityResultLauncher<Intent>? = null
 
-
-
+    private val locationCallback: LocationCallback? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +123,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.gpsMenuItem -> {
-                //TODO
+                setUpLastKnownLocation()
                 Toast.makeText(this, "TODO: gps", Toast.LENGTH_SHORT).show()
 
                 return true // this event has been consumed/handled
@@ -164,12 +165,14 @@ class MainActivity : AppCompatActivity() {
 
         inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener, View.OnLongClickListener {
-            private val nameTextView = itemView.findViewById<TextView>(R.id.cardNameTextView)
-            private val addressTextView = itemView.findViewById<TextView>(R.id.cardAddressTextView)
+            private val nameTextView = itemView.findViewById<TextView>(R.id.nameTextView)
+            private val distanceTextView = itemView.findViewById<TextView>(R.id.distanceTextView)
+            private val addressTextView = itemView.findViewById<TextView>(R.id.addressTextView)
 
 
             fun updateView(p: Place) {
                 nameTextView.text = "${p.name} (${p.rating})⭐️"
+                // TODO: Set the text for the distance of the place from the user
                 addressTextView.text = p.vicinity
             }
 
@@ -223,7 +226,7 @@ class MainActivity : AppCompatActivity() {
 //                    .inflate(android.R.layout.simple_list_item_1, parent, false);
             // 2. use our own custom layout
             val view = LayoutInflater.from(this@MainActivity)
-                .inflate(R.layout.card_view_list_item, parent, false)
+                .inflate(R.layout.card_view_item, parent, false)
             return CustomViewHolder(view)
         }
 
@@ -244,4 +247,48 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+    // setting up the user's location
+    private fun setUpLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_REQUEST_CODE
+            )
+        } else {
+            val locationTask: Task<Location> = fusedLocationClient.lastLocation
+            locationTask.addOnSuccessListener { location ->
+                if (location != null) {
+                    Log.d(
+                        TAG,
+                        "onSuccess: " + location.latitude + ", " + location.longitude
+                    )
+                }
+            }
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String?>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                setUpLastKnownLocation()
+            }
+        }
+    }
+
 }
