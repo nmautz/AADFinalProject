@@ -149,7 +149,13 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             String formatted_address = cursor.getString(4);
             String review = cursor.getString(5);
             String phone_num = cursor.getString(6);
-            Bitmap bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
+            Bitmap bitmap = null;
+            try{
+                bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
 
 
             p = new Place((long) id, name, vicinity, rating, formatted_address, review, null ,phone_num, bitmap);
