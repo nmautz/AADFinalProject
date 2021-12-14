@@ -1,5 +1,8 @@
 package mautz.nathan.finalproject
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -7,16 +10,26 @@ import android.view.*
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 class MainActivity : AppCompatActivity() {
 
+    //Used for Log.d
     private val TAG = "MAINACTIVITYTAG"
 
+    //Data used in recyclerView
     var places : ArrayList<Place>? = null
 
+    //adapter used in recyclerView
     private var adapter: MainActivity.CustomAdapter? = null
+
+    //used for location services
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +46,33 @@ class MainActivity : AppCompatActivity() {
         adapter = CustomAdapter()
         //Connect adapter to recyclerview
         recyclerView.adapter = adapter
+
+        //Setting up location services----------------
+
+        //Checking for location permission
+        //TODO deal with no permission
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            // we don't have permission, request it
+            // this is going to show an alert dialog to the user, asking for their choice
+            ActivityCompat.requestPermissions(
+                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
+            )
+        }
+        //Sets GooglePlacesAPI's location
+        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
+            GooglePlacesAPI.location = location
+        }
+        //---------------------------------------------
+
 
 
         //Testing code goes here ----------------------------
