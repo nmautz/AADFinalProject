@@ -6,12 +6,20 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
+        val testTV = findViewById<TextView>(R.id.testTV)
+        testTV.visibility = View.GONE;
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
