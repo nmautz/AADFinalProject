@@ -1,6 +1,7 @@
 package mautz.nathan.finalproject
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
@@ -10,6 +11,8 @@ import android.view.*
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +35,8 @@ class MainActivity : AppCompatActivity() {
 
     //used for location services
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    var launcher: ActivityResultLauncher<Intent>? = null
 
     private val locationCallback: LocationCallback? = null
 
@@ -75,6 +80,20 @@ class MainActivity : AppCompatActivity() {
             GooglePlacesAPI.location = location
         }
         //---------------------------------------------
+
+        //Set up details activity launcher
+        launcher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            Log.d(TAG, "onActivityResult: ")
+            // this callback executes when MainActivity returns from
+            // starting an activity (e.g. SecondActivity) that was
+            // started for a result
+            // BRB
+            if (result.resultCode == RESULT_OK) {
+                val data = result.data
+            }
+        }
 
 
 

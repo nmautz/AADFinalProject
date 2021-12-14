@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DetailsActivity">
+
+    <TextView
+        android:id="@+id/detailsNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@id/detailsPlaceHoursTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/detailsPlaceHoursTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/specialRestrictionsTextView"
+        app:layout_constraintEnd_toEndOf="@+id/detailsNameTextView"
+        app:layout_constraintStart_toStartOf="@+id/detailsNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsNameTextView" />
+
+    <TextView
+        android:id="@+id/specialRestrictionsTextView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
+        app:layout_constraintEnd_toEndOf="@+id/detailsPlaceHoursTextView"
+        app:layout_constraintStart_toStartOf="@+id/detailsPlaceHoursTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceHoursTextView" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="mautz.nathan.finalproject.MapsFragment"
+        android:layout_width="0dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/specialRestrictionsTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/specialRestrictionsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/specialRestrictionsTextView" />
+</androidx.constraintlayout.widget.ConstraintLayout>
