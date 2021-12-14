@@ -182,7 +182,6 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     {
         String idStr = Integer.toString((int) id);
         SQLiteDatabase db = getWritableDatabase();
-        //TODO update delete args
         db.delete(PLACES_TABLE, "_id = ?", new String[]{idStr});
         db.close();
     }
