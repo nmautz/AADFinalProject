@@ -55,56 +55,26 @@ class MainActivity : AppCompatActivity() {
         //Connect adapter to recyclerview
         recyclerView.adapter = adapter
 
-        //Setting up location services----------------
-
-        //Checking for location permission
-        //TODO deal with no permission
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
-        if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-
-            // we don't have permission, request it
-            // this is going to show an alert dialog to the user, asking for their choice
-            ActivityCompat.requestPermissions(
-                this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1
-            )
-        }
-        //Sets GooglePlacesAPI's location
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            GooglePlacesAPI.location = location
-        }
-        //---------------------------------------------
-
-        //Set up details activity launcher
-        launcher = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()
-        ) { result ->
-            Log.d(TAG, "onActivityResult: ")
-            // this callback executes when MainActivity returns from
-            // starting an activity (e.g. SecondActivity) that was
-            // started for a result
-            // BRB
-            if (result.resultCode == RESULT_OK) {
-                val data = result.data
-            }
-        }
-
 
 
         //Testing code goes here ----------------------------
 
         val TTAG = "TESTINGTAG"
-        val p = Place(null, "Place_Name", "Old Winkle Point Rd", "5", "1155 Old Winkle Point Rd Northport New York", "So good dude", "NO_PHOTO", "425-299-8171", null)
+        val places = GooglePlacesAPI.findPlaces("Union Gospel Mission Men's Shelter and Recovery")
+        if(places != null)
+            for(place in places)
+                Log.d(TTAG, place.name)
+
+
+
+
         val db = SqlDBOpenHelper(this)
-        db.insertPlace(p)
-        val p2 = db.selectAllPlaces[0]
-        Log.d(TTAG, p2.name)
+        for(place in places)
+     //       db.insertPlace(place)
+
+
+
+
         //---------------------------------------------------
 
 
