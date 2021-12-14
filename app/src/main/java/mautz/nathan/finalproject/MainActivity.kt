@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
         //Testing code goes here ----------------------------
         places = ArrayList<Place>()
         places?.add(
-            Place("Word", "Word", "5",
+            Place(null,"Word", "Word", "5",
         "addy", "So good dude", "No dude",
             "425-299-8171", null)
         )

@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SqlDBOpenHelper extends SQLiteOpenHelper {
@@ -92,7 +93,6 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     }
 
     public List<Place> getSelectAllPlaces() {
-        /*TODO update old code for place
         List<Place> places = new ArrayList<>();
         Cursor cursor = getSelectAllCursor();
         // the cursor starts "one before" the first record
@@ -101,27 +101,20 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             // parse to the column data for the current cursor record
             // into a Contact object
             int id = cursor.getInt(0);
-            String type = cursor.getString(1);
-            String title = cursor.getString(2);
-            Bitmap bitmap = DbBitmapUtility.getImage(cursor.getBlob(3));
-            String watched = cursor.getString(4);
 
-            boolean bWatched;
-            if(watched.equals("false"))
-            {
-                bWatched = false;
-            }else
-            {
-                bWatched = true;
-            }
+            String name = cursor.getString(1);
+            String vicinity = cursor.getString(2);
+            String rating = cursor.getString(3);
+            String formatted_address = cursor.getString(4);
+            String review = cursor.getString(5);
+            String phone_num = cursor.getString(6);
+            Bitmap bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
 
-            Place p = new Place(id, type, title, bitmap, bWatched);
+
+            Place p = new Place((long) id, name, vicinity, rating, formatted_address, review, null ,phone_num, bitmap);
             places.add(p);
         }
         return places;
-
-         */
-        return null;
     }
 
     public Place getSelectVideoById(int idParam) {
