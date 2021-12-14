@@ -25,6 +25,9 @@ public class GooglePlacesAPI {
     public static Location location;
 
 
+    //Based on a search returns the first 20 results
+    //Likely unneeded so marking as deprecated for now
+    @Deprecated
     static List<Place> findPlaces(String search)
     {
         FindPlaceAsyncTask task1 = new FindPlaceAsyncTask();
@@ -62,6 +65,7 @@ public class GooglePlacesAPI {
     }
 
 
+    //Executing this task will return a string list of place_ids to be used in FindPlaceDetailAsyncTask to get the place object... takes a string search
     static class FindPlaceAsyncTask extends AsyncTask<String, Void, List<String>>{
 
         private static URL constructURLFindPlace(String search) {
@@ -135,6 +139,7 @@ public class GooglePlacesAPI {
             return string_list;
         }
     }
+    //Executing this task will return a Place based on a place_id string
     static class FindPlaceDetailAsyncTask extends AsyncTask<String, Void, Place>{
         @Override
         protected void onPreExecute() {
@@ -261,6 +266,7 @@ public class GooglePlacesAPI {
             return url;
         }
     }
+    //Executing this task will return a Bitmap based on an image_id
     static class FindPlaceImageAsyncTask extends  AsyncTask<String, Void, Bitmap>{
 
         private URL constructURL(String photo_ref){
