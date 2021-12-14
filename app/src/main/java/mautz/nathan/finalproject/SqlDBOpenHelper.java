@@ -67,14 +67,14 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     public void insertPlace(Place p) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, p.getName());
-        contentValues.put(VICINITY, p.getVicinity());
+        contentValues.put(VICINITY, p.getFormatted_address());
         contentValues.put(RATING, p.getRating());
         contentValues.put(FORMATTED_ADDRESS, p.getFormatted_address());
         contentValues.put(REVIEW, p.getReview());
         contentValues.put(PHONE_NUM,p.getPhone_num());
 
-        if(p.getPhoto_bitmap() != null)
-            contentValues.put(BITMAP, DbBitmapUtility.getBytes(p.getPhoto_bitmap()));
+        if(p.getBitmap() != null)
+            contentValues.put(BITMAP, DbBitmapUtility.getBytes(p.getBitmap()));
         else
             contentValues.put(BITMAP, (byte[]) null);
 
@@ -122,7 +122,8 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
 
 
 
-            Place p = new Place((long) id, name, vicinity, rating, formatted_address, review, null ,phone_num, bitmap);
+            Place p = new Place((long) id,name,rating,formatted_address,review,phone_num,null, null);
+            p.setBitmap(bitmap);
             places.add(p);
         }
         return places;
@@ -158,7 +159,8 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             }
 
 
-            p = new Place((long) id, name, vicinity, rating, formatted_address, review, null ,phone_num, bitmap);
+            p = new Place((long) id,name,rating,formatted_address,review,phone_num,null, null);
+            p.setBitmap(bitmap);
         }
         return p;
     }
@@ -168,20 +170,20 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     {
 
         byte[] bitmapBytes = null;
-        if(place.getPhoto_bitmap() != null)
-            bitmapBytes = DbBitmapUtility.getBytes(place.getPhoto_bitmap());
+        if(place.getBitmap() != null)
+            bitmapBytes = DbBitmapUtility.getBytes(place.getBitmap());
 
         String idStr = Integer.toString((int) id);
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, place.getName());
-        contentValues.put(VICINITY, place.getVicinity());
+        contentValues.put(VICINITY, place.getFormatted_address());
         contentValues.put(RATING, place.getRating());
         contentValues.put(FORMATTED_ADDRESS, place.getFormatted_address());
         contentValues.put(REVIEW, place.getReview());
         contentValues.put(PHONE_NUM,place.getPhone_num());
 
-        if(place.getPhoto_bitmap() != null)
-            contentValues.put(BITMAP, DbBitmapUtility.getBytes(place.getPhoto_bitmap()));
+        if(place.getBitmap() != null)
+            contentValues.put(BITMAP, DbBitmapUtility.getBytes(place.getBitmap()));
         else
             contentValues.put(BITMAP, (byte[]) null);
 

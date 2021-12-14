@@ -100,11 +100,7 @@ class MainActivity : AppCompatActivity() {
         //Testing code goes here ----------------------------
 
         val TTAG = "TESTINGTAG"
-        val p = Place(null, "Place_Name", "Old Winkle Point Rd", "5", "1155 Old Winkle Point Rd Northport New York", "So good dude", "NO_PHOTO", "425-299-8171", null)
-        val db = SqlDBOpenHelper(this)
-        db.insertPlace(p)
-        val p2 = db.selectAllPlaces[0]
-        Log.d(TTAG, p2.name)
+
         //---------------------------------------------------
 
 
@@ -171,7 +167,7 @@ class MainActivity : AppCompatActivity() {
             fun updateView(p: Place) {
                 nameTextView.text = "${p.name} (${p.rating})⭐️"
                 // TODO: Set the text for the distance of the place from the user
-                addressTextView.text = p.vicinity
+                addressTextView.text = p.formatted_address
             }
 
 

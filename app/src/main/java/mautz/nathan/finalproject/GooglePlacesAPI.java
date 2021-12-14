@@ -41,14 +41,6 @@ public class GooglePlacesAPI {
                     FindPlaceDetailAsyncTask task2 = new FindPlaceDetailAsyncTask();
                     FindPlaceImageAsyncTask task3 = new FindPlaceImageAsyncTask();
                     Place p = task2.execute(pID).get();
-                    Bitmap bm = null;
-                    if(p != null) {
-                        bm = task3.execute(p.getPhoto_ref()).get();
-                        p.setPhoto_bitmap(bm);
-
-
-                    }
-
                     if(p != null)
                         places.add(p);
                 }catch (Exception e){
@@ -237,9 +229,8 @@ public class GooglePlacesAPI {
                         e.printStackTrace();
                     }
 
-
-                    p = new Place(null, name, vicinity, rating, formatted_address,review, photo, phone_num, null);
-
+                    //TODO add open hours
+                    p = new Place(null, name, rating, formatted_address, review, phone_num ,null, photo);
 
                 } catch (Exception e){
                     e.printStackTrace();
