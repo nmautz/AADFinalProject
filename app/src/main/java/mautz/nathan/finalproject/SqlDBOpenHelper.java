@@ -21,9 +21,12 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     //TODO update for place
     static final String PLACES_TABLE = "tablePlaces";
     static final String ID = "_id"; // by convention
-    static final String TYPE = "type";
-    static final String TITLE = "title";
-    static final String WATCHED = "watched";
+    static final String NAME = "name";
+    static final String VICINITY = "vicinity";
+    static final String RATING = "rating";
+    static final String FORMATTED_ADDRESS = "formatted_address";
+    static final String REVIEW = "review";
+    static final String PHONE_NUM = "phone_num";
     static final String BITMAP = "bitmap";
 
     public SqlDBOpenHelper(Context context) {
@@ -40,13 +43,15 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         // we need to construct a SQL statement to
         // create our tableContacts table
         // SQL: structured query language
-        //TODO update call for place
         String sqlCreate = "CREATE TABLE " + PLACES_TABLE +
                 "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                TYPE + " TEXT, " +
-                TITLE + " TEXT, " +
-                BITMAP + " BLOB, " +
-                WATCHED + " TEXT)";
+                NAME + " TEXT, " +
+                VICINITY + " TEXT, " +
+                RATING + " TEXT, " +
+                FORMATTED_ADDRESS + " TEXT, " +
+                REVIEW + " TEXT, " +
+                PHONE_NUM + " TEXT, " +
+                BITMAP + " BLOB)";
         Log.d(TAG, "onCreate: " + sqlCreate);
         // execute the statement
         db.execSQL(sqlCreate);
