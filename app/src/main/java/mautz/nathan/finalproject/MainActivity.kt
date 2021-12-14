@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import java.sql.SQLClientInfoException
 
 class MainActivity : AppCompatActivity() {
 
@@ -76,13 +77,13 @@ class MainActivity : AppCompatActivity() {
 
 
         //Testing code goes here ----------------------------
-        places = ArrayList<Place>()
-        places?.add(
-            Place("Word", "Word", "5",
-        "addy", "So good dude", "No dude",
-            "425-299-8171", null)
-        )
-        adapter?.notifyDataSetChanged()
+
+        val TTAG = "TESTINGTAG"
+        val p = Place(null, "Place_Name", "Old Winkle Point Rd", "5", "1155 Old Winkle Point Rd Northport New York", "So good dude", "NO_PHOTO", "425-299-8171", null)
+        val db = SqlDBOpenHelper(this)
+        db.insertPlace(p)
+        val p2 = db.selectAllPlaces[0]
+        Log.d(TTAG, p2.name)
         //---------------------------------------------------
 
 

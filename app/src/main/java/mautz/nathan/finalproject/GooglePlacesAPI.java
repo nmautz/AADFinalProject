@@ -238,7 +238,7 @@ public class GooglePlacesAPI {
                     }
 
 
-                    p = new Place(name, vicinity, rating, formatted_address,review, photo, phone_num, null);
+                    p = new Place(null, name, vicinity, rating, formatted_address,review, photo, phone_num, null);
 
 
                 } catch (Exception e){
