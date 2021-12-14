@@ -84,9 +84,8 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     public Cursor getSelectAllCursor() {
         // return a cursor for stepping through all records in our table
         SQLiteDatabase db = getReadableDatabase();
-        //TODO update this call with new args
         Cursor cursor = db.query(PLACES_TABLE,
-                new String[]{ID, TYPE, TITLE, BITMAP, WATCHED},
+                new String[]{ID, NAME, VICINITY, RATING, FORMATTED_ADDRESS, REVIEW, PHONE_NUM, BITMAP},
                 null, null, null, null, null);
         // don't close the database, the cursor needs it open
         return cursor;
