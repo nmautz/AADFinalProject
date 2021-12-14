@@ -121,39 +121,33 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         return places;
     }
 
-    public Place getSelectVideoById(int idParam) {
-        /*TODO convert from video to place
+    public Place getSelectPlaceById(int idParam) {
         SQLiteDatabase db = getReadableDatabase();
-        //TODO update db.query params
-        Cursor cursor = db.query(VIDEOS_TABLE, new String[]{ID,
-                        TYPE,
-                        TITLE,
-                        BITMAP,
-                        WATCHED},
+        Cursor cursor = db.query(PLACES_TABLE, new String[]{ID,
+                        NAME,
+                        VICINITY,
+                        RATING,
+                        FORMATTED_ADDRESS,
+                        REVIEW,
+                        PHONE_NUM,
+                        BITMAP},
                 ID + "=?", new String[]{"" + idParam}, null, null, null);
         Place p = null;
-        if (cursor.moveToNext()) { // false when there are no more records to process
-            // parse to the column data for the current cursor record
-            // into a Contact object
+        if (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            String type = cursor.getString(1);
-            String title = cursor.getString(2);
-            int image_preview = cursor.getInt(3);
-            String watched = cursor.getString(4);
-            boolean bWatched;
-            if(watched.equals("false"))
-            {
-                bWatched = false;
-            }else
-            {
-                bWatched = true;
-            }
-            video = new Video(id, type, title, image_preview, bWatched);
 
+            String name = cursor.getString(1);
+            String vicinity = cursor.getString(2);
+            String rating = cursor.getString(3);
+            String formatted_address = cursor.getString(4);
+            String review = cursor.getString(5);
+            String phone_num = cursor.getString(6);
+            Bitmap bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
+
+
+            p = new Place((long) id, name, vicinity, rating, formatted_address, review, null ,phone_num, bitmap);
         }
-        return video;
-         */
-        return null;
+        return p;
     }
 
     public long getIDbyTitle(String title)
