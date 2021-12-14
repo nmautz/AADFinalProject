@@ -151,24 +151,31 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     }
 
 
-    public void updateVideoAtId(long id, Place place)
+    public void updatePlaceAtId(long id, Place place)
     {
-        /*TODO convert from video to place
 
-        byte[] bitmapBytes = DbBitmapUtility.getBytes(place.getBitmap());
+        byte[] bitmapBytes = null;
+        if(place.getPhoto_bitmap() != null)
+            bitmapBytes = DbBitmapUtility.getBytes(place.getPhoto_bitmap());
 
         String idStr = Integer.toString((int) id);
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TITLE, place.getTitle());
-        contentValues.put(TYPE, place.getType());
-        contentValues.put(BITMAP, bitmapBytes);
-        contentValues.put(WATCHED, place.isWatched());
+        contentValues.put(NAME, place.getName());
+        contentValues.put(VICINITY, place.getVicinity());
+        contentValues.put(RATING, place.getRating());
+        contentValues.put(FORMATTED_ADDRESS, place.getFormatted_address());
+        contentValues.put(REVIEW, place.getReview());
+        contentValues.put(PHONE_NUM,place.getPhone_num());
+
+        if(place.getPhoto_bitmap() != null)
+            contentValues.put(BITMAP, DbBitmapUtility.getBytes(place.getPhoto_bitmap()));
+        else
+            contentValues.put(BITMAP, (byte[]) null);
 
         SQLiteDatabase db = getWritableDatabase();
-        db.update(VIDEOS_TABLE, contentValues, "_id = ?", new String[]{idStr});
+        db.update(PLACES_TABLE, contentValues, "_id = ?", new String[]{idStr});
         db.close();
 
-         */
     }
 
     public void deletePlaceById(long id)
