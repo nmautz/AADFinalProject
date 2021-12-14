@@ -3,26 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/gpsMenuItem"
-        android:title="Add Item"
-        android:icon="@android:drawable/ic_menu_add"
+        android:title="Recenter Location"
+        android:icon="@android:drawable/ic_menu_mylocation"
         app:showAsAction="always"
         />
 
     <item
         android:id="@+id/searchMenuItem"
-        android:title="Preferences"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Search"
+        android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="always"
         />
 
     <item
         android:id="@+id/downloadMenuItem"
-        android:title="About App"
-        app:showAsAction="never"
+        android:title="Download Nearby Locations"
+        android:icon="@android:drawable/ic_menu_save"
+        app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/filterMenuItem"
-        android:title="About App"
-        app:showAsAction="never"
+        android:title="Filters"
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="ifRoom"
         />
 </menu>
