@@ -9,14 +9,15 @@
     <EditText
         android:id="@+id/searchBarEditText"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:text="Edit Me!"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toStartOf="@+id/searchButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:inputType="textShortMessage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
