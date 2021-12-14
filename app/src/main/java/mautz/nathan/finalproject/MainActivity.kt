@@ -124,9 +124,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.gpsMenuItem -> {
                 setUpLastKnownLocation()
-                Toast.makeText(this, "TODO: gps", Toast.LENGTH_SHORT).show()
-
-                return true // this event has been consumed/handled
+                return true
             }
             R.id.searchMenuItem -> {
                 val searchET = findViewById<EditText>(R.id.searchBarEditText)
