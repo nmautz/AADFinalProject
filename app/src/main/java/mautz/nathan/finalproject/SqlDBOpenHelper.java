@@ -1,6 +1,7 @@
 package mautz.nathan.finalproject;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -63,22 +64,25 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
 
     }
 
-    public void insertVideo(Place p) {
-        //TODO
-        /* old code update for place
+    public void insertPlace(Place p) {
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TYPE, p.getType());
-        contentValues.put(TITLE, p.getTitle());
-        contentValues.put(WATCHED, Boolean.toString(p.isWatched()));
-        contentValues.put(BITMAP, DbBitmapUtility.getBytes(p.getBitmap()));
+        contentValues.put(NAME, p.getName());
+        contentValues.put(VICINITY, p.getVicinity());
+        contentValues.put(RATING, p.getRating());
+        contentValues.put(FORMATTED_ADDRESS, p.getFormatted_address());
+        contentValues.put(REVIEW, p.getReview());
+        contentValues.put(PHONE_NUM,p.getPhone_num());
 
+        if(p.getPhoto_bitmap() != null)
+            contentValues.put(BITMAP, DbBitmapUtility.getBytes(p.getPhoto_bitmap()));
+        else
+            contentValues.put(BITMAP, (byte[]) null);
 
 
         SQLiteDatabase db = getWritableDatabase();
-        db.insert(VIDEOS_TABLE, null, contentValues);
+        db.insert(PLACES_TABLE, null, contentValues);
         // don't forget to close the database!!
         db.close();
-        */
     }
 
     // helper method
