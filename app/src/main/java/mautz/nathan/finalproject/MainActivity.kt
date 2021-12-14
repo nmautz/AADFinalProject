@@ -22,8 +22,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val itemId = item.itemId
-        when (itemId) {
+        when (item.itemId) {
             R.id.gpsMenuItem -> {
                 //TODO
                 Toast.makeText(this, "TODO: gps", Toast.LENGTH_SHORT).show()
