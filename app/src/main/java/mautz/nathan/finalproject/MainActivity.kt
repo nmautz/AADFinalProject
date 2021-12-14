@@ -138,22 +138,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onLongClick(v: View): Boolean {
                 Log.d(TAG, "onLongClick: ")
-                // a demo of alert dialogs
-                // use the AlertDialog.Builder class and method chaining
-                // to set up an alert dialog
-//                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("Item Long Clicked")
-//                        .setMessage("You clicked on an item")
-//                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//                                Toast.makeText(MainActivity.this, "OKAY", Toast.LENGTH_SHORT).show();
-//                            }
-//                        })
-//                        .setNegativeButton("Dismiss", null);
-//                builder.show();
 
-                return true // false means this callback did not "consume" the event
+                //We can remove this later idk if we will want it
+
+                return true
             }
 
             init {
