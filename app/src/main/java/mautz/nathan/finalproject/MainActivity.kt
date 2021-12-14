@@ -16,8 +16,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        val testTV = findViewById<TextView>(R.id.testTV)
-        testTV.visibility = View.GONE;
 
 
     }
@@ -49,6 +47,12 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.filterMenuItem -> {
                 //TODO
+                val testTV = findViewById<TextView>(R.id.testTV)
+                if(testTV.visibility == View.GONE)
+                    testTV.visibility = View.VISIBLE
+                else
+                    testTV.visibility = View.GONE
+
                 Toast.makeText(this, "TODO: filter", Toast.LENGTH_SHORT).show()
                 return true
             }
