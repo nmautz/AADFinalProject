@@ -150,23 +150,6 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         return p;
     }
 
-    public long getIDbyTitle(String title)
-    {
-        /*TODO convert from video to place
-        List<Video> videos = getSelectAllPlaces();
-        for(int i = 0; i < videos.size(); ++i)
-        {
-            if(videos.get(i).getTitle().equals(title))
-            {
-                return videos.get(i).getId();
-            }
-
-        }
-        return -1;
-
-         */
-        return 0;//Delete this line
-    }
 
     public void updateVideoAtId(long id, Place place)
     {
