@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/gpsMenuItem"
+        android:title="Add Item"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/searchMenuItem"
+        android:title="Preferences"
+        android:icon="@android:drawable/ic_menu_preferences"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/downloadMenuItem"
+        android:title="About App"
+        app:showAsAction="never"
+        />
+    <item
+        android:id="@+id/filterMenuItem"
+        android:title="About App"
+        app:showAsAction="never"
+        />
+</menu>
