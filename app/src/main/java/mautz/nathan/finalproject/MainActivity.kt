@@ -1,6 +1,5 @@
 package mautz.nathan.finalproject
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -82,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.filterMenuItem -> {
-                val testTV = findViewById<TextView>(R.id.testTV)
+                val testTV = findViewById<TextView>(R.id.filtersTextView)
                 if(testTV.visibility == View.GONE)
                     testTV.visibility = View.VISIBLE
                 else
