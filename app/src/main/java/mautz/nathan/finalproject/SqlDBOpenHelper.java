@@ -1,7 +1,6 @@
 package mautz.nathan.finalproject;
 
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -15,12 +14,12 @@ import java.util.List;
 
 public class SqlDBOpenHelper extends SQLiteOpenHelper {
 
-    static final String TAG = "VideoOpenHelper";
+    static final String TAG = "SqlDBOpenHelper";
 
-    static final String DATABASE_NAME = "videosDatabase.db";
+    static final String DATABASE_NAME = "placesDatabase.db";
     static final int DATABASE_VERSION = 1;
-
-    static final String VIDEOS_TABLE = "tableVideos";
+    //TODO update for place
+    static final String PLACES_TABLE = "tablePlaces";
     static final String ID = "_id"; // by convention
     static final String TYPE = "type";
     static final String TITLE = "title";
@@ -41,7 +40,8 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         // we need to construct a SQL statement to
         // create our tableContacts table
         // SQL: structured query language
-        String sqlCreate = "CREATE TABLE " + VIDEOS_TABLE +
+        //TODO update call for place
+        String sqlCreate = "CREATE TABLE " + PLACES_TABLE +
                 "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 TYPE + " TEXT, " +
                 TITLE + " TEXT, " +
@@ -80,7 +80,7 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         // return a cursor for stepping through all records in our table
         SQLiteDatabase db = getReadableDatabase();
         //TODO update this call with new args
-        Cursor cursor = db.query(VIDEOS_TABLE,
+        Cursor cursor = db.query(PLACES_TABLE,
                 new String[]{ID, TYPE, TITLE, BITMAP, WATCHED},
                 null, null, null, null, null);
         // don't close the database, the cursor needs it open
@@ -198,7 +198,7 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         String idStr = Integer.toString((int) id);
         SQLiteDatabase db = getWritableDatabase();
         //TODO update delete args
-        db.delete(VIDEOS_TABLE, "_id = ?", new String[]{idStr});
+        db.delete(PLACES_TABLE, "_id = ?", new String[]{idStr});
         db.close();
     }
 
