@@ -14,7 +14,7 @@
         android:layout_marginTop="10dp"
         android:inputType="textShortMessage"
         android:text="Edit Me!"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toStartOf="@+id/searchButton"
         app:layout_constraintStart_toStartOf="parent"
