@@ -9,10 +9,12 @@
     <EditText
         android:id="@+id/searchBarEditText"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:inputType="textShortMessage"
         android:text="Edit Me!"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toStartOf="@+id/searchButton"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,11 +22,12 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/searchButton"
+        app:layout_constraintEnd_toStartOf="@+id/testTV"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/searchBarEditText"
         app:layout_constraintTop_toBottomOf="@+id/searchBarEditText" />
 
@@ -38,5 +41,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/searchBarEditText"
         app:layout_constraintTop_toTopOf="@+id/searchBarEditText" />
+
+    <TextView
+        android:id="@+id/testTV"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:text="TextView"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/recyclerView"
+        app:layout_constraintTop_toTopOf="@+id/recyclerView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
