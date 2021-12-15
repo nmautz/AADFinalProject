@@ -271,7 +271,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        if(locationCallback != null)
+            fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun onRequestPermissionsResult(
