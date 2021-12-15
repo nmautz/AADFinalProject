@@ -14,6 +14,7 @@ import mautz.nathan.finalproject.ExtraInfoFragment.Companion.newInstance
 class DetailsActivity : AppCompatActivity() {
 
     var frag_manager: FragmentViewManager? = null
+    var place: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +35,7 @@ class DetailsActivity : AppCompatActivity() {
         frag_manager = FragmentViewManager(fragContainerView, supportFragmentManager)
         val extraInfoFrag = ExtraInfoFragment.newInstance("","")
         val mapsFragment = MapsFragment()
+        //TODO maybe pass bundle
         frag_manager?.setActiveFragment(mapsFragment)
 
         //Unpack intent and set views
@@ -53,6 +55,8 @@ class DetailsActivity : AppCompatActivity() {
             val review = intent.getStringExtra("review")
             val phone_num = intent.getStringExtra("phone_num")
             val open_hours = intent.getStringExtra("open_hours")
+            //Construct place from intent data
+            place = Place(null, name, rating, formatted_address, review, phone_num, open_hours, null)
 
             nameTV.text = "$name ($rating⭐️)"
             hoursTV.text = open_hours
@@ -79,7 +83,17 @@ class DetailsActivity : AppCompatActivity() {
                 return true
             }
             R.id.showExtraInfoFragMenuButton -> {
-                frag_manager?.setActiveFragment(ExtraInfoFragment())
+
+                val fragment = ExtraInfoFragment()
+                val bundle = Bundle()
+                bundle.putString("name", place?.name)
+                bundle.putString("rating", place?.rating)
+                bundle.putString("formatted_address", place?.review)
+                bundle.putString("review", place?.review)
+                bundle.putString("phone_num", place?.phone_num)
+                bundle.putString("open_hours", place?.open_hours)
+                fragment.arguments = bundle
+                frag_manager?.setActiveFragment(fragment)
                 return true
             }
 
