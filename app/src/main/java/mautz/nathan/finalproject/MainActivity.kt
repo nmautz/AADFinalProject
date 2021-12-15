@@ -68,10 +68,10 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         val db = SqlDBOpenHelper(this)
         for(place in places)
      //       db.insertPlace(place)
-
 
 
 
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
             fun updateView(p: Place) {
                 nameTextView.text = "${p.name} (${p.rating})⭐️"
                 // TODO: Set the text for the distance of the place from the user
-                addressTextView.text = p.vicinity
+                addressTextView.text = p.formatted_address
             }
 
 
@@ -232,10 +232,8 @@ class MainActivity : AppCompatActivity() {
             val locationTask: Task<Location> = fusedLocationClient.lastLocation
             locationTask.addOnSuccessListener { location ->
                 if (location != null) {
-                    Log.d(
-                        TAG,
-                        "onSuccess: " + location.latitude + ", " + location.longitude
-                    )
+                    Toast.makeText(this, "Lat ${location.latitude}, Long ${location.longitude}", Toast.LENGTH_SHORT).show()
+                    GooglePlacesAPI.location = location
                 }
             }
         }

@@ -41,14 +41,6 @@ public class GooglePlacesAPI {
                     FindPlaceDetailAsyncTask task2 = new FindPlaceDetailAsyncTask();
                     FindPlaceImageAsyncTask task3 = new FindPlaceImageAsyncTask();
                     Place p = task2.execute(pID).get();
-                    Bitmap bm = null;
-                    if(p != null) {
-                        bm = task3.execute(p.getPhoto_ref()).get();
-                        p.setPhoto_bitmap(bm);
-
-
-                    }
-
                     if(p != null)
                         places.add(p);
                 }catch (Exception e){
@@ -186,15 +178,6 @@ public class GooglePlacesAPI {
                         e.printStackTrace();
                     }
 
-                    //Get small address string
-                    String vicinity = "NO_ADR";
-                    try{
-                        vicinity = jsonObject.getJSONObject("result").get("vicinity").toString();
-                    }catch (Exception e)
-                    {
-                        e.printStackTrace();
-                    }
-
                     //Get rating string
                     String rating = "NO_RATING";
                     try{
@@ -237,9 +220,16 @@ public class GooglePlacesAPI {
                         e.printStackTrace();
                     }
 
+                    String open_hours = "NO_HOURS";
+                    try{
+                        open_hours = jsonObject.getJSONObject("result").getJSONArray("reviews").getJSONObject(0).get("text").toString();
+                    }catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
 
-                    p = new Place(null, name, vicinity, rating, formatted_address,review, photo, phone_num, null);
 
+                    p = new Place(null, name, rating, formatted_address, review, phone_num ,null, photo);
 
                 } catch (Exception e){
                     e.printStackTrace();
@@ -255,7 +245,7 @@ public class GooglePlacesAPI {
             URL url = null;
             try {
                 url =  new URL(BASE_URL + "details/json"
-                        + "?fields=vicinity%2Cname%2Crating%2Cformatted_address%2Creviews%2Cinternational_phone_number%2Cphotos"
+                        + "?fields=name%2Crating%2Cformatted_address%2Creviews%2Cinternational_phone_number%2Cphotos%2Copening_hours"
                         + "&place_id=" + place_id
                         + "&key=AIzaSyAifgT1bcIKN7qQgHxvCqZqxDWGR8cFDPk"
                 );
