@@ -42,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     private val locationCallback: LocationCallback? = null
 
+    var db: SqlDBOpenHelper? = null;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -99,8 +101,8 @@ class MainActivity : AppCompatActivity() {
 
 
         //Load places from db on launch
-        val db = SqlDBOpenHelper(this)
-        places = db.selectAllPlaces as ArrayList<Place>?
+        db = SqlDBOpenHelper(this)
+        places = db?.selectAllPlaces as ArrayList<Place>?
         adapter?.notifyDataSetChanged()
 
 
@@ -208,7 +210,13 @@ class MainActivity : AppCompatActivity() {
                     builder.setTitle("Delete This Note")
                         .setMessage("Are you sure you want to delete " + p.name + "?")
                         .setPositiveButton("Yes") { _, _ ->
-                            places?.remove(places?.get(adapterPosition))
+
+                            //Remove place from db
+                            if(p!=null)
+                                p.id?.let { db?.deletePlaceById(it) }
+
+                            //Remove place from apps list and notify adapter
+                            places?.remove(p)
                             adapter!!.notifyItemRemoved(adapterPosition)
                             Toast.makeText(this@MainActivity, "OKAY", Toast.LENGTH_SHORT).show()
                         }
