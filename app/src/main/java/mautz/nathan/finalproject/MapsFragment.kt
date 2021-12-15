@@ -3,6 +3,7 @@ package mautz.nathan.finalproject
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,16 +18,22 @@ import mautz.nathan.finalproject.GooglePlacesAPI.location
 
 class MapsFragment : Fragment() {
 
-    var formatted_address: String? = null
+    var place_location: LatLng? = null
+    var googleMap: GoogleMap? = null
 
     private val callback = OnMapReadyCallback { googleMap ->
 
+        this.googleMap = googleMap
+        var placeLatLng: LatLng? = null
+        if(place_location != null) {
+            placeLatLng = LatLng(place_location!!.latitude, place_location!!.longitude)
 
-        val placeLatLng = LatLng(GooglePlacesAPI.location.latitude, GooglePlacesAPI.location.longitude )
-        googleMap.addMarker(MarkerOptions().position(placeLatLng).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
-        googleMap.setMinZoomPreference(15F)
-        googleMap.setMaxZoomPreference(15F)
+            googleMap.addMarker(MarkerOptions().position(placeLatLng).title("Marker in Sydney"))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
+            googleMap.setMinZoomPreference(15F)
+            googleMap.setMaxZoomPreference(15F)
+        }
+        Log.d("testttt", "2")
 
     }
     override fun onCreate(savedInstanceState: Bundle?){
@@ -35,7 +42,19 @@ class MapsFragment : Fragment() {
             val data = arguments
             if (data != null) {
                 //Load data from arguments
-                formatted_address = data["formatted_address"] as String?
+                val formatted_address = data["formatted_address"] as String?
+                val task = GooglePlacesAPI.FindLatLngAsyncTask()
+                place_location = task.execute(formatted_address).get()
+                Log.d("testttt", "1")
+                var placeLatLng: LatLng? = null
+                if(place_location != null) {
+                    placeLatLng = LatLng(place_location!!.latitude, place_location!!.longitude)
+
+                    googleMap?.addMarker(MarkerOptions().position(placeLatLng).title("Marker in Sydney"))
+                    googleMap?.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
+                    googleMap?.setMinZoomPreference(15F)
+                    googleMap?.setMaxZoomPreference(15F)
+                }
             }
         }
 
