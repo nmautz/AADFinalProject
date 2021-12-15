@@ -96,6 +96,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        //Load places from db on launch
+        val db = SqlDBOpenHelper(this)
+        places = db.selectAllPlaces as ArrayList<Place>?
+        adapter?.notifyDataSetChanged()
+
+
 
         //Testing code goes here ----------------------------
 
