@@ -216,8 +216,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 builder.show()
                 return true
-
-                return true
             }
 
             init {
