@@ -40,7 +40,6 @@ public class GooglePlacesAPI {
             {
                 try{
                     FindPlaceDetailAsyncTask task2 = new FindPlaceDetailAsyncTask();
-                    FindPlaceImageAsyncTask task3 = new FindPlaceImageAsyncTask();
                     Place p = task2.execute(pID).get();
                     if(p != null)
                         places.add(p);

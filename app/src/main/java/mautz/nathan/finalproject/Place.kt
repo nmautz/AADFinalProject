@@ -12,6 +12,7 @@ class Place(val id: Long?, var name:String?, var rating:String?,
     var bitmap: Bitmap? = null
 
     init {
+        /*
         if(photo_ref != null)
         {
             try{
@@ -21,6 +22,8 @@ class Place(val id: Long?, var name:String?, var rating:String?,
                 e.printStackTrace()
             }
         }
+
+         */
     }
     override fun toString(): String {
         return "Place(name='$name')"

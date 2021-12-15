@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
@@ -105,6 +106,25 @@ class MainActivity : AppCompatActivity() {
         places = db?.selectAllPlaces as ArrayList<Place>?
         adapter?.notifyDataSetChanged()
 
+
+
+        //set up search bar
+        //get view refs
+        val searchBarET = findViewById<EditText>(R.id.searchBarEditText)
+        val searchButton = findViewById<Button>(R.id.searchButton)
+        //Set up listeners
+        searchButton.setOnClickListener(View.OnClickListener { view: View? ->
+            val query = searchBarET.text.toString()
+
+            val resultPlaces = GooglePlacesAPI.findPlaces(query)
+            val tmpPlaces = places
+            places = resultPlaces as ArrayList<Place>?
+
+            adapter?.notifyDataSetChanged()
+
+
+
+        })
 
 
         //Testing code goes here ----------------------------
