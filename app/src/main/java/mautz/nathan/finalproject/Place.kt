@@ -1,12 +1,13 @@
 package mautz.nathan.finalproject
 
 import android.graphics.Bitmap
+import java.io.Serializable
 import java.lang.Exception
 import java.math.BigDecimal
 
-class Place(val id: Long?, var name:String, var rating:String,
-            var formatted_address:String, var review:String,
-            val phone_num:String, val open_hours: String?,
+class Place(val id: Long?, var name:String?, var rating:String?,
+            var formatted_address:String?, var review:String?,
+            val phone_num:String?, val open_hours: String?,
             photo_ref:String?) {
     var bitmap: Bitmap? = null
 

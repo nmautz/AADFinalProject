@@ -191,7 +191,7 @@ class MainActivity : AppCompatActivity() {
                 val data = Intent(this@MainActivity, DetailsActivity::class.java)
                 data.putExtra("name", p?.name)
                 data.putExtra("rating", p?.rating)
-                data.putExtra("formatted_address", p?.review)
+                data.putExtra("formatted_address", p?.formatted_address)
                 data.putExtra("review", p?.review)
                 data.putExtra("phone_num", p?.phone_num)
                 data.putExtra("open_hours", p?.open_hours)
