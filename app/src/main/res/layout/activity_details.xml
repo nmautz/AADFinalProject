@@ -25,13 +25,13 @@
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/specialRestrictionsTextView"
+        app:layout_constraintBottom_toTopOf="@+id/detailsSpecialRestrictionsTextView"
         app:layout_constraintEnd_toEndOf="@+id/detailsNameTextView"
         app:layout_constraintStart_toStartOf="@+id/detailsNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/detailsNameTextView" />
 
     <TextView
-        android:id="@+id/specialRestrictionsTextView"
+        android:id="@+id/detailsSpecialRestrictionsTextView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="15dp"
@@ -49,8 +49,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/specialRestrictionsTextView"
+        app:layout_constraintEnd_toEndOf="@+id/detailsSpecialRestrictionsTextView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/specialRestrictionsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/specialRestrictionsTextView" />
+        app:layout_constraintStart_toStartOf="@+id/detailsSpecialRestrictionsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsSpecialRestrictionsTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
