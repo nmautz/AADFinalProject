@@ -170,20 +170,6 @@ class MainActivity : AppCompatActivity() {
 
                 return true
             }
-            R.id.downloadMenuItem -> {
-                //TODO
-                Toast.makeText(this, "TODO: download", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.filterMenuItem -> {
-                val testTV = findViewById<TextView>(R.id.filtersTextView)
-                if(testTV.visibility == View.GONE)
-                    testTV.visibility = View.VISIBLE
-                else
-                    testTV.visibility = View.GONE
-
-                return true
-            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -310,7 +296,6 @@ class MainActivity : AppCompatActivity() {
             val locationTask: Task<Location> = fusedLocationClient.lastLocation
             locationTask.addOnSuccessListener { location ->
                 if (location != null) {
-                    Toast.makeText(this, "Lat ${location.latitude}, Long ${location.longitude}", Toast.LENGTH_SHORT).show()
                     GooglePlacesAPI.location = location
                 }
             }
