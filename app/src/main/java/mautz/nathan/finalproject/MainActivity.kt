@@ -292,9 +292,13 @@ class MainActivity : AppCompatActivity() {
                 LOCATION_REQUEST_CODE
             )
         } else {
+            val request = LocationRequest.create()
+            request.numUpdates = 1
+            fusedLocationClient.requestLocationUpdates(request, null)
             val locationTask: Task<Location> = fusedLocationClient.lastLocation
             locationTask.addOnSuccessListener { location ->
                 if (location != null) {
+                    Toast.makeText(this, "${location.longitude}", Toast.LENGTH_LONG).show()
                     GooglePlacesAPI.location = location
                 }
             }
