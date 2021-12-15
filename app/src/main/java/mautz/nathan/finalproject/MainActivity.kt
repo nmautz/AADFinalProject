@@ -186,18 +186,14 @@ class MainActivity : AppCompatActivity() {
                 val p = places?.get(adapterPosition)
 
 
-
-                /* //TODO this is just copied from my PA8 code
                 val data = Intent(this@MainActivity, DetailsActivity::class.java)
-                data.putExtra("name", p.name)
-                data.putExtra("address", p.formatted_address)
-                data.putExtra("review", p.review)
-                data.putExtra("rating", p.rating)
-                data.putExtra("photo", p.photo_ref)
-                data.putExtra("phone", p.phone_num)
-                data.putExtra("bitmap", p.photo_bitmap)
+                data.putExtra("name", p?.name)
+                data.putExtra("rating", p?.rating)
+                data.putExtra("formatted_address", p?.review)
+                data.putExtra("review", p?.review)
+                data.putExtra("phone_num", p?.phone_num)
+                data.putExtra("open_hours", p?.open_hours)
                 launcher?.launch(data)
-                */
 
             }
 
@@ -275,7 +271,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        fusedLocationClient.removeLocationUpdates(locationCallback)
+        if(locationCallback != null)
+            fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     override fun onRequestPermissionsResult(
