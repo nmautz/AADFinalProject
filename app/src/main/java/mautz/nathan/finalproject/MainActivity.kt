@@ -156,10 +156,17 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.searchMenuItem -> {
                 val searchET = findViewById<EditText>(R.id.searchBarEditText)
-                if(searchET.visibility == View.GONE)
+                if(searchET.visibility == View.GONE) {
                     searchET.visibility = View.VISIBLE
-                else
+                    places?.clear()
+                    adapter?.notifyDataSetChanged()
+                }
+                else {
                     searchET.visibility = View.GONE
+                    places = db?.selectAllPlaces as ArrayList<Place>?
+                    adapter?.notifyDataSetChanged()
+
+                }
 
                 return true
             }
