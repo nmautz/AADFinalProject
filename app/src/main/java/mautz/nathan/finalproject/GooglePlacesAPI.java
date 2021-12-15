@@ -66,7 +66,7 @@ public class GooglePlacesAPI {
                 url =  new URL(BASE_URL + "nearbysearch/json"
                         + "?keyword=" + search //gives search keyword
                         + "&radius=1500"
-                        + "&location=" + location.getLatitude() + "%2C" + location.getLongitude()
+                        + "&location=" + "47.6662" + "%2C" + "-117.402"
                         + "&key=AIzaSyAifgT1bcIKN7qQgHxvCqZqxDWGR8cFDPk"
                 );
             } catch (MalformedURLException e) {
