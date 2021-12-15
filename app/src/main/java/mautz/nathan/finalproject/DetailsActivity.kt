@@ -1,7 +1,12 @@
 package mautz.nathan.finalproject
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentContainerView
 import mautz.nathan.finalproject.ExtraInfoFragment.Companion.newInstance
@@ -59,4 +64,27 @@ class DetailsActivity : AppCompatActivity() {
 
 
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        // we need to get a MenuInflater to inflate our main_menu.xml
+        val menuInflater = menuInflater
+        menuInflater.inflate(R.menu.details_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.showMapFragMenuButton -> {
+                frag_manager?.setActiveFragment(MapsFragment())
+                return true
+            }
+            R.id.showExtraInfoFragMenuButton -> {
+                frag_manager?.setActiveFragment(ExtraInfoFragment())
+                return true
+            }
+
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
 }
