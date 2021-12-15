@@ -26,18 +26,6 @@ class DetailsActivity : AppCompatActivity() {
         val fragContainerView = findViewById<FragmentContainerView>(R.id.fragmentContainerView)
 
 
-        //set up fragment
-        val frag = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
-        if(frag != null)
-        {
-            supportFragmentManager.beginTransaction().remove(frag).commit();
-        }
-        frag_manager = FragmentViewManager(fragContainerView, supportFragmentManager)
-        val extraInfoFrag = ExtraInfoFragment.newInstance("","")
-        val mapsFragment = MapsFragment()
-        //TODO maybe pass bundle
-        frag_manager?.setActiveFragment(mapsFragment)
-
         //Unpack intent and set views
         val intent = intent
         if (intent != null) { // good practice
@@ -64,6 +52,22 @@ class DetailsActivity : AppCompatActivity() {
         }
 
 
+        //set up fragment
+        val frag = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+        if(frag != null)
+        {
+            supportFragmentManager.beginTransaction().remove(frag).commit();
+        }
+        frag_manager = FragmentViewManager(fragContainerView, supportFragmentManager)
+        val extraInfoFrag = ExtraInfoFragment.newInstance("","")
+        val mapsFragment = MapsFragment()
+        val mapsBundle = Bundle()
+        mapsBundle.putString("formatted_address", place?.formatted_address)
+        mapsFragment.arguments = mapsBundle
+        frag_manager?.setActiveFragment(mapsFragment)
+
+
+
 
 
 
@@ -79,7 +83,11 @@ class DetailsActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.showMapFragMenuButton -> {
-                frag_manager?.setActiveFragment(MapsFragment())
+                val fragment = MapsFragment()
+                val bundle = Bundle()
+                bundle.putString("formatted_address", place?.formatted_address)
+                fragment.arguments = bundle
+                frag_manager?.setActiveFragment(fragment)
                 return true
             }
             R.id.showExtraInfoFragMenuButton -> {
