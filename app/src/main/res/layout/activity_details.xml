@@ -9,7 +9,7 @@
     <TextView
         android:id="@+id/detailsNameTextView"
         android:layout_width="0dp"
-        android:layout_height="40dp"
+        android:layout_height="75dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
@@ -22,35 +22,24 @@
     <TextView
         android:id="@+id/detailsPlaceHoursTextView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginTop="15dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/detailsSpecialRestrictionsTextView"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainerView"
         app:layout_constraintEnd_toEndOf="@+id/detailsNameTextView"
         app:layout_constraintStart_toStartOf="@+id/detailsNameTextView"
         app:layout_constraintTop_toBottomOf="@+id/detailsNameTextView" />
-
-    <TextView
-        android:id="@+id/detailsSpecialRestrictionsTextView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="15dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@id/fragmentContainerView"
-        app:layout_constraintEnd_toEndOf="@+id/detailsPlaceHoursTextView"
-        app:layout_constraintStart_toStartOf="@+id/detailsPlaceHoursTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceHoursTextView" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="mautz.nathan.finalproject.MapsFragment"
         android:layout_width="0dp"
-        android:layout_height="350dp"
+        android:layout_height="0dp"
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/detailsSpecialRestrictionsTextView"
+        app:layout_constraintEnd_toEndOf="@+id/detailsPlaceHoursTextView"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/detailsSpecialRestrictionsTextView"
-        app:layout_constraintTop_toBottomOf="@+id/detailsSpecialRestrictionsTextView" />
+        app:layout_constraintStart_toStartOf="@+id/detailsPlaceHoursTextView"
+        app:layout_constraintTop_toBottomOf="@+id/detailsPlaceHoursTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>
