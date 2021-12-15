@@ -63,12 +63,14 @@ public class GooglePlacesAPI {
         private static URL constructURLFindPlace(String search) {
             URL url = null;
             try {
-                url =  new URL(BASE_URL + "nearbysearch/json"
-                        + "?keyword=" + search //gives search keyword
-                        + "&radius=1500"
-                        + "&location=" + location.getLatitude() + "%2C" + location.getLongitude()
-                        + "&key=AIzaSyAifgT1bcIKN7qQgHxvCqZqxDWGR8cFDPk"
-                );
+                if(location!=null) {
+                    url = new URL(BASE_URL + "nearbysearch/json"
+                            + "?keyword=" + search //gives search keyword
+                            + "&radius=1500"
+                            + "&location=" + location.getLatitude() + "%2C" + location.getLongitude()
+                            + "&key=AIzaSyAifgT1bcIKN7qQgHxvCqZqxDWGR8cFDPk"
+                    );
+                }
             } catch (MalformedURLException e) {
                 e.printStackTrace();
             }
