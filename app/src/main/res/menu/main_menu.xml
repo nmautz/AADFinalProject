@@ -15,16 +15,4 @@
         app:showAsAction="always"
         />
 
-    <item
-        android:id="@+id/downloadMenuItem"
-        android:title="Download Nearby Locations"
-        android:icon="@android:drawable/ic_menu_save"
-        app:showAsAction="ifRoom"
-        />
-    <item
-        android:id="@+id/filterMenuItem"
-        android:title="Filters"
-        android:icon="@android:drawable/ic_menu_preferences"
-        app:showAsAction="ifRoom"
-        />
 </menu>

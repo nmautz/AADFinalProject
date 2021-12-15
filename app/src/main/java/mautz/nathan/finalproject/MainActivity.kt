@@ -156,24 +156,17 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.searchMenuItem -> {
                 val searchET = findViewById<EditText>(R.id.searchBarEditText)
-                if(searchET.visibility == View.GONE)
+                if(searchET.visibility == View.GONE) {
                     searchET.visibility = View.VISIBLE
-                else
+                    places?.clear()
+                    adapter?.notifyDataSetChanged()
+                }
+                else {
                     searchET.visibility = View.GONE
+                    places = db?.selectAllPlaces as ArrayList<Place>?
+                    adapter?.notifyDataSetChanged()
 
-                return true
-            }
-            R.id.downloadMenuItem -> {
-                //TODO
-                Toast.makeText(this, "TODO: download", Toast.LENGTH_SHORT).show()
-                return true
-            }
-            R.id.filterMenuItem -> {
-                val testTV = findViewById<TextView>(R.id.filtersTextView)
-                if(testTV.visibility == View.GONE)
-                    testTV.visibility = View.VISIBLE
-                else
-                    testTV.visibility = View.GONE
+                }
 
                 return true
             }
@@ -302,7 +295,6 @@ class MainActivity : AppCompatActivity() {
             val locationTask: Task<Location> = fusedLocationClient.lastLocation
             locationTask.addOnSuccessListener { location ->
                 if (location != null) {
-                    Toast.makeText(this, "Lat ${location.latitude}, Long ${location.longitude}", Toast.LENGTH_SHORT).show()
                     GooglePlacesAPI.location = location
                 }
             }
