@@ -6,6 +6,8 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -27,7 +29,6 @@ public class GooglePlacesAPI {
 
     //Based on a search returns the first 20 results
     //Likely unneeded so marking as deprecated for now
-    @Deprecated
     static List<Place> findPlaces(String search)
     {
         FindPlaceAsyncTask task1 = new FindPlaceAsyncTask();
@@ -55,7 +56,6 @@ public class GooglePlacesAPI {
         }
         return places;
     }
-
 
     //Executing this task will return a string list of place_ids to be used in FindPlaceDetailAsyncTask to get the place object... takes a string search
     static class FindPlaceAsyncTask extends AsyncTask<String, Void, List<String>>{
@@ -324,6 +324,69 @@ public class GooglePlacesAPI {
 
 
 
+    }
+    //
+    static class FindLatLngAsyncTask extends  AsyncTask<String, Void, LatLng>{
+
+        String LOCAL_BASE_URL = "https://maps.googleapis.com/maps/api/geocode/";
+
+
+        private URL constructURLFindDetail(String address) {
+            String formatted_address = address;
+
+
+            URL url = null;
+            try {
+                url =  new URL(LOCAL_BASE_URL + "json"
+                        + "?address=" + formatted_address
+                        + "&key=AIzaSyAifgT1bcIKN7qQgHxvCqZqxDWGR8cFDPk"
+                );
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+
+            return url;
+        }
+
+
+        @Override
+        protected LatLng doInBackground(String... strings) {
+
+            LatLng latLng = null;
+            URL url = constructURLFindDetail(strings[0]);
+            if(url != null)
+            {
+                try {
+
+                    HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+
+                    String jsonResult = "";
+                    // character by character we are going to build the json string from an input stream
+                    InputStream in = urlConnection.getInputStream();
+                    InputStreamReader reader = new InputStreamReader(in);
+                    int data = reader.read();
+                    while (data != -1) {
+                        jsonResult += (char) data;
+                        data = reader.read();
+                    }
+
+                    //Turn result into list of places
+
+                    JSONObject jsonObject = new JSONObject(jsonResult);
+                    String lat = (new JSONObject(jsonResult)).getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast").get("lat").toString();
+                    String lng = (new JSONObject(jsonResult)).getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("bounds").getJSONObject("northeast").get("lng").toString();
+                    latLng = new LatLng(Double.parseDouble(lat),Double.parseDouble(lng));
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
+
+
+            }
+
+
+
+            return latLng;
+        }
     }
 
 

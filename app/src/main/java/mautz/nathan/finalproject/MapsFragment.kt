@@ -3,6 +3,7 @@ package mautz.nathan.finalproject
 import androidx.fragment.app.Fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,23 +14,54 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import mautz.nathan.finalproject.GooglePlacesAPI.location
 
 class MapsFragment : Fragment() {
 
+    var place_location: LatLng? = null
+    var googleMap: GoogleMap? = null
+
     private val callback = OnMapReadyCallback { googleMap ->
-        /**
-         * Manipulates the map once available.
-         * This callback is triggered when the map is ready to be used.
-         * This is where we can add markers or lines, add listeners or move the camera.
-         * In this case, we just add a marker near Sydney, Australia.
-         * If Google Play services is not installed on the device, the user will be prompted to
-         * install it inside the SupportMapFragment. This method will only be triggered once the
-         * user has installed Google Play services and returned to the app.
-         */
-        val sydney = LatLng(-34.0, 151.0)
-        googleMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        this.googleMap = googleMap
+        var placeLatLng: LatLng? = null
+        if(place_location != null) {
+            placeLatLng = LatLng(place_location!!.latitude, place_location!!.longitude)
+
+            googleMap.addMarker(MarkerOptions().position(placeLatLng).title("Marker in Sydney"))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
+            googleMap.setMinZoomPreference(15F)
+            googleMap.setMaxZoomPreference(15F)
+        }
+        Log.d("testttt", "2")
+
     }
+    override fun onCreate(savedInstanceState: Bundle?){
+        super.onCreate(savedInstanceState)
+        if(arguments != null) {
+            val data = arguments
+            if (data != null) {
+                //Load data from arguments
+                val formatted_address = data["formatted_address"] as String?
+                val task = GooglePlacesAPI.FindLatLngAsyncTask()
+                place_location = task.execute(formatted_address).get()
+                Log.d("testttt", "1")
+                var placeLatLng: LatLng? = null
+                if(place_location != null) {
+                    placeLatLng = LatLng(place_location!!.latitude, place_location!!.longitude)
+
+                    googleMap?.addMarker(MarkerOptions().position(placeLatLng).title("Marker in Sydney"))
+                    googleMap?.moveCamera(CameraUpdateFactory.newLatLng(placeLatLng))
+                    googleMap?.setMinZoomPreference(15F)
+                    googleMap?.setMaxZoomPreference(15F)
+                }
+            }
+        }
+
+
+    }
+
+
 
 
     override fun onCreateView(
