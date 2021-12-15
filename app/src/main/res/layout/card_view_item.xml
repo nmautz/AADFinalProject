@@ -25,24 +25,8 @@
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Title"
             card_view:layout_constraintBottom_toTopOf="@+id/addressTextView"
-            card_view:layout_constraintEnd_toStartOf="@+id/distanceTextView"
-            card_view:layout_constraintHorizontal_bias="0.5"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/distanceTextView"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/distance_miles_from_user_location"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            card_view:layout_constraintBottom_toBottomOf="@+id/nameTextView"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.5"
-            card_view:layout_constraintStart_toEndOf="@+id/nameTextView"
+            card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toTopOf="parent" />
 
         <TextView

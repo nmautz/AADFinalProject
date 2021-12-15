@@ -192,7 +192,6 @@ class MainActivity : AppCompatActivity() {
         inner class CustomViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
             View.OnClickListener, View.OnLongClickListener {
             private val nameTextView = itemView.findViewById<TextView>(R.id.nameTextView)
-            private val distanceTextView = itemView.findViewById<TextView>(R.id.distanceTextView)
             private val addressTextView = itemView.findViewById<TextView>(R.id.addressTextView)
 
 
