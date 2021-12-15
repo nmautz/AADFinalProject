@@ -24,11 +24,11 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     static final String PLACES_TABLE = "tablePlaces";
     static final String ID = "_id"; // by convention
     static final String NAME = "name";
-    static final String VICINITY = "vicinity";
     static final String RATING = "rating";
     static final String FORMATTED_ADDRESS = "formatted_address";
     static final String REVIEW = "review";
     static final String PHONE_NUM = "phone_num";
+    static final String OPEN_HOURS = "open_hours";
     static final String BITMAP = "bitmap";
 
     public SqlDBOpenHelper(Context context) {
@@ -48,11 +48,11 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         String sqlCreate = "CREATE TABLE " + PLACES_TABLE +
                 "(" + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 NAME + " TEXT, " +
-                VICINITY + " TEXT, " +
                 RATING + " TEXT, " +
                 FORMATTED_ADDRESS + " TEXT, " +
                 REVIEW + " TEXT, " +
                 PHONE_NUM + " TEXT, " +
+                OPEN_HOURS + " TEXT, " +
                 BITMAP + " BLOB)";
         Log.d(TAG, "onCreate: " + sqlCreate);
         // execute the statement
@@ -67,11 +67,12 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
     public void insertPlace(Place p) {
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, p.getName());
-        contentValues.put(VICINITY, p.getFormatted_address());
         contentValues.put(RATING, p.getRating());
         contentValues.put(FORMATTED_ADDRESS, p.getFormatted_address());
         contentValues.put(REVIEW, p.getReview());
         contentValues.put(PHONE_NUM,p.getPhone_num());
+        contentValues.put(OPEN_HOURS, p.getOpen_hours());
+
 
         if(p.getBitmap() != null)
             contentValues.put(BITMAP, DbBitmapUtility.getBytes(p.getBitmap()));
@@ -90,7 +91,7 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         // return a cursor for stepping through all records in our table
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(PLACES_TABLE,
-                new String[]{ID, NAME, VICINITY, RATING, FORMATTED_ADDRESS, REVIEW, PHONE_NUM, BITMAP},
+                new String[]{ID, NAME, RATING, FORMATTED_ADDRESS, REVIEW, PHONE_NUM, OPEN_HOURS, BITMAP},
                 null, null, null, null, null);
         // don't close the database, the cursor needs it open
         return cursor;
@@ -107,11 +108,12 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             int id = cursor.getInt(0);
 
             String name = cursor.getString(1);
-            String vicinity = cursor.getString(2);
-            String rating = cursor.getString(3);
-            String formatted_address = cursor.getString(4);
-            String review = cursor.getString(5);
-            String phone_num = cursor.getString(6);
+            String rating = cursor.getString(2);
+            String formatted_address = cursor.getString(3);
+            String review = cursor.getString(4);
+            String phone_num = cursor.getString(5);
+            String open_hours = cursor.getString(6);
+
             Bitmap bitmap = null;
             try{
                 bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
@@ -122,7 +124,7 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
 
 
 
-            Place p = new Place((long) id,name,rating,formatted_address,review,phone_num,null, null);
+            Place p = new Place((long) id,name,rating,formatted_address,review,phone_num,open_hours, null);
             p.setBitmap(bitmap);
             places.add(p);
         }
@@ -133,11 +135,11 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         Cursor cursor = db.query(PLACES_TABLE, new String[]{ID,
                         NAME,
-                        VICINITY,
                         RATING,
                         FORMATTED_ADDRESS,
                         REVIEW,
                         PHONE_NUM,
+                        OPEN_HOURS,
                         BITMAP},
                 ID + "=?", new String[]{"" + idParam}, null, null, null);
         Place p = null;
@@ -145,11 +147,12 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             int id = cursor.getInt(0);
 
             String name = cursor.getString(1);
-            String vicinity = cursor.getString(2);
-            String rating = cursor.getString(3);
-            String formatted_address = cursor.getString(4);
-            String review = cursor.getString(5);
-            String phone_num = cursor.getString(6);
+            String rating = cursor.getString(2);
+            String formatted_address = cursor.getString(3);
+            String review = cursor.getString(4);
+            String phone_num = cursor.getString(5);
+            String open_hours = cursor.getString(6);
+
             Bitmap bitmap = null;
             try{
                 bitmap = DbBitmapUtility.getImage(cursor.getBlob(7));
@@ -159,7 +162,7 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
             }
 
 
-            p = new Place((long) id,name,rating,formatted_address,review,phone_num,null, null);
+            p = new Place((long) id,name,rating,formatted_address,review,phone_num,open_hours, null);
             p.setBitmap(bitmap);
         }
         return p;
@@ -176,11 +179,12 @@ public class SqlDBOpenHelper extends SQLiteOpenHelper {
         String idStr = Integer.toString((int) id);
         ContentValues contentValues = new ContentValues();
         contentValues.put(NAME, place.getName());
-        contentValues.put(VICINITY, place.getFormatted_address());
         contentValues.put(RATING, place.getRating());
         contentValues.put(FORMATTED_ADDRESS, place.getFormatted_address());
         contentValues.put(REVIEW, place.getReview());
         contentValues.put(PHONE_NUM,place.getPhone_num());
+        contentValues.put(OPEN_HOURS, place.getOpen_hours());
+
 
         if(place.getBitmap() != null)
             contentValues.put(BITMAP, DbBitmapUtility.getBytes(place.getBitmap()));
