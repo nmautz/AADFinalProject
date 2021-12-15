@@ -258,10 +258,8 @@ class MainActivity : AppCompatActivity() {
             val locationTask: Task<Location> = fusedLocationClient.lastLocation
             locationTask.addOnSuccessListener { location ->
                 if (location != null) {
-                    Log.d(
-                        TAG,
-                        "onSuccess: " + location.latitude + ", " + location.longitude
-                    )
+                    Toast.makeText(this, "Lat ${location.latitude}, Long ${location.longitude}", Toast.LENGTH_SHORT).show()
+                    GooglePlacesAPI.location = location
                 }
             }
         }
