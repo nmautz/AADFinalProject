@@ -104,6 +104,14 @@ class DetailsActivity : AppCompatActivity() {
                 frag_manager?.setActiveFragment(fragment)
                 return true
             }
+            R.id.downloadMenuButton -> {
+                //TODO
+                val db = SqlDBOpenHelper(this@DetailsActivity)
+                val places = db.selectAllPlaces
+                if(!places.contains(place))
+                    db.insertPlace(place)
+
+            }
 
         }
         return super.onOptionsItemSelected(item)
