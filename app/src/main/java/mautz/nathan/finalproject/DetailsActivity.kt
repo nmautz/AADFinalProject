@@ -1,22 +1,37 @@
 package mautz.nathan.finalproject
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.result.ActivityResultLauncher
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
+import mautz.nathan.finalproject.ExtraInfoFragment.Companion.newInstance
 
 class DetailsActivity : AppCompatActivity() {
+
+    var frag_manager: FragmentViewManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
+        //get view refs
         val nameTV = findViewById<TextView>(R.id.detailsNameTextView)
         val hoursTV = findViewById<TextView>(R.id.detailsPlaceHoursTextView)
+        val fragContainerView = findViewById<FragmentContainerView>(R.id.fragmentContainerView)
 
 
+        //set up fragment
+        val frag = supportFragmentManager.findFragmentById(R.id.fragmentContainerView)
+        if(frag != null)
+        {
+            supportFragmentManager.beginTransaction().remove(frag).commit();
+        }
+        frag_manager = FragmentViewManager(fragContainerView, supportFragmentManager)
+        val extraInfoFrag = ExtraInfoFragment.newInstance("","")
+        val mapsFragment = MapsFragment()
+        frag_manager?.setActiveFragment(mapsFragment)
 
+        //Unpack intent and set views
         val intent = intent
         if (intent != null) { // good practice
 
@@ -38,5 +53,10 @@ class DetailsActivity : AppCompatActivity() {
             hoursTV.text = open_hours
 
         }
+
+
+
+
+
     }
 }
