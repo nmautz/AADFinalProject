@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,15 +18,43 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class ExtraInfoFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    var place: Place? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
+
+
+
+
+
+        if(arguments != null)
+        {
+            val data = arguments
+            if(data!=null){
+                //Load data from arguments
+                val name = data["name"]
+                val rating = data["rating"]
+                val formatted_address = data["formatted_address"]
+                val review = data["review"]
+                val phone_num = data["phone_num"]
+                val open_hours = data["open_hours"]
+
+                //create place from data
+                place = Place(id=null, name = name as String?, rating = rating as String?,
+                    formatted_address = formatted_address as String?, review = review as String?,
+                    phone_num = phone_num as String?, open_hours = open_hours as String?, photo_ref = null
+                    )
+
+
+            }
+
+
+
+
+
+
         }
 
 
@@ -36,8 +65,19 @@ class ExtraInfoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        val v = inflater.inflate(R.layout.fragment_extra_info, container, false)
+        //Get refs to views
+        val addressTV = v?.findViewById<TextView>(R.id.addressTV)
+        val reviewTV = v?.findViewById<TextView>(R.id.reviewTV)
+        //fill views
+        addressTV?.text = place?.formatted_address
+        reviewTV?.text = place?.review
+
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_extra_info, container, false)
+
+        return v
     }
 
     companion object {

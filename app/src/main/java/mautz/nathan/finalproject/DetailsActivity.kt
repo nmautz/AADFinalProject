@@ -56,7 +56,7 @@ class DetailsActivity : AppCompatActivity() {
             val phone_num = intent.getStringExtra("phone_num")
             val open_hours = intent.getStringExtra("open_hours")
             //Construct place from intent data
-            place = Place(null, name, rating, formatted_address, review, phone_num, open_hours, null)
+            place = Place(null, name, rating, formatted_address = formatted_address, review, phone_num, open_hours, null)
 
             nameTV.text = "$name ($rating⭐️)"
             hoursTV.text = open_hours
@@ -88,7 +88,7 @@ class DetailsActivity : AppCompatActivity() {
                 val bundle = Bundle()
                 bundle.putString("name", place?.name)
                 bundle.putString("rating", place?.rating)
-                bundle.putString("formatted_address", place?.review)
+                bundle.putString("formatted_address", place?.formatted_address)
                 bundle.putString("review", place?.review)
                 bundle.putString("phone_num", place?.phone_num)
                 bundle.putString("open_hours", place?.open_hours)
